@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
-import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { SingInUserDto } from 'src/modules/user/dto/singIn-user-dto';
 
 @ApiBearerAuth()
 @ApiTags('Auth - Autorização')
@@ -22,14 +22,22 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
+  @ApiOperation({
+    summary: 'Realiza o login de um usuário',
+    description: 'Realiza o login de um usuário plataforma',
+  })
   @ApiOkResponse({ description: 'Usuário logado com sucesso', status: 200 })
   @ApiBadRequestResponse({ description: 'Requisição inválida', status: 400 })
   @ApiUnauthorizedResponse({ description: 'Acesso não autorizado', status: 401 })
-  signIn(@Body() signInDto: CreateUserDto) {
+  signIn(@Body() signInDto: SingInUserDto) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
   @Get('profile')
+  @ApiOperation({
+    summary: 'Acessa as informações de um usuário',
+    description: 'Acessa as informações de um usuário com base no Bearer Token recebido no login',
+  })
   @ApiOkResponse({ description: 'Informações encontradas', status: 200 })
   @ApiBadRequestResponse({ description: 'Requisição inválida', status: 400 })
   @ApiUnauthorizedResponse({ description: 'Acesso não autorizado', status: 401 })
@@ -39,6 +47,7 @@ export class AuthController {
       firstName: req.user.firstName,
       lastName: req.user.lastName,
       username: req.user.username,
+      email: req.user.email,
     }
     return user;
   }
