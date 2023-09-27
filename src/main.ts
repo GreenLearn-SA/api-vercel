@@ -19,7 +19,6 @@ async function bootstrap() {
     .setDescription('API para a Situação de Aprendizagem do Ensino Médio da `Escola SENAI`')
     .setVersion('1.0')
     .setLicense('MIT', 'https://opensource.org/license/mit/')
-    .setTermsOfService('termsOfService')
     .addBearerAuth()
     .setContact(
       'Pedro Henrique Nieto da Silva',
@@ -28,7 +27,11 @@ async function bootstrap() {
 
     .addTag('Usuário', 'Tudo sobre os usuários', {
       description: 'Saiba mais',
-      url: 'https://github.com/Pedroo-Nietoo/Houston',
+      url: 'https://github.com/GreenLearn-SA',
+    })
+    .addTag('Disciplina', 'Tudo sobre disciplias', {
+      description: 'Saiba mais',
+      url: 'https://github.com/GreenLearn-SA',
     })
     .build();
 

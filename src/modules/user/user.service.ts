@@ -50,6 +50,11 @@ export class UserService {
           lastName: true,
           username: true,
           email: true,
+          disciplines: {
+            select: {
+              name: true,
+            },
+          },
         },
       });
     } else if (page == 1) {
@@ -60,6 +65,11 @@ export class UserService {
           lastName: true,
           username: true,
           email: true,
+          disciplines: {
+            select: {
+              name: true,
+            },
+          },
         },
         take: 20,
       });
@@ -71,6 +81,11 @@ export class UserService {
           lastName: true,
           username: true,
           email: true,
+          disciplines: {
+            select: {
+              name: true,
+            },
+          },
         },
         take: 20,
         skip: (page - 1) * 20,
@@ -89,8 +104,13 @@ export class UserService {
         lastName: true,
         username: true,
         email: true,
+        disciplines: {
+          select: {
+            name: true,
+          },
+        },
       },
-    });
+    })
 
     const userExists = await this.prisma.user.findUnique({
       where: {
@@ -105,10 +125,10 @@ export class UserService {
     return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(username: string, updateUserDto: UpdateUserDto) {
     const userExists = await this.prisma.user.findUnique({
       where: {
-        id: id,
+        username: updateUserDto.username,
       },
     });
 
@@ -135,15 +155,15 @@ export class UserService {
         password: hash,
       },
       where: {
-        id,
+        username,
       },
     });
   }
 
-  async remove(id: string) {
+  async remove(username: string) {
     const userExists = await this.prisma.user.findUnique({
       where: {
-        id,
+        username,
       },
     });
 
@@ -153,7 +173,7 @@ export class UserService {
 
     await this.prisma.user.delete({
       where: {
-        id,
+        username,
       },
     });
   }

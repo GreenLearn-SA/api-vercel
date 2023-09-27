@@ -6,8 +6,7 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
-  ParseUUIDPipe,
+  Delete
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -34,6 +33,8 @@ import { Public } from 'src/auth/decorators/public.decorator';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
+  @Public()
+  @Post('create')
   @ApiOperation({
     summary: 'Cria um usuário',
     description: 'Cria um usuário na plataforma',
@@ -49,8 +50,6 @@ export class UserController {
     description: 'Requisição inválida',
     type: SwaggerBadRequestResponse,
   })
-  @Public()
-  @Post('create')
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
@@ -118,15 +117,15 @@ export class UserController {
     description: 'Requisição inválida',
     type: SwaggerBadRequestResponse,
   })
-  @Patch('update/:id')
-  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  @Patch('update/:username')
+  update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.userService.update(username, updateUserDto);
   }
 
   @ApiOperation({
     summary: 'Remove um usuário',
     description:
-      'Remove um usuário do sistema ao passar o id do mesmo',
+      'Remove um usuário do sistema ao passar o username do mesmo',
   })
   @ApiOkResponse({ status: 200, description: 'Usuário removido' })
   @ApiNotFoundResponse({
@@ -139,8 +138,8 @@ export class UserController {
     description: 'Requisição inválida',
     type: SwaggerBadRequestResponse,
   })
-  @Delete('remove/:id')
-  remove(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.userService.remove(id);
+  @Delete('remove/:username')
+  remove(@Param('username') username: string) {
+    return this.userService.remove(username);
   }
 }
