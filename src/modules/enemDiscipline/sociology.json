@@ -1,0 +1,21 @@
+{
+    "title": "Sociologia",
+    "content":[
+        {
+            "name": "Conceitos e Fundadores",
+            "done": false
+        },
+        {
+            "name": "Sociologia Contemporânea e Temas Atuais",
+            "done": false
+        },
+        {
+            "name": "Cidadania",
+            "done": false
+        },
+        {
+            "name": "Movimentos sociais",
+            "done": false
+        }
+    ]
+}
