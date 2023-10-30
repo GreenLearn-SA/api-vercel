@@ -16,10 +16,31 @@ describe('AppController (E2E)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('should check the service health', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
       .expect('Service is up and running!');
+  });
+
+  it(('should create a test user'), () => {
+    const URL = '/user/create';
+    return request(app.getHttpServer())
+      .post(URL)
+      .send({
+        firstName: 'User',
+        lastName: 'Teste',
+        username: 'UserTeste',
+        email: 'userteste@exemplo.com',
+        password: 'UserTeste123!',
+        isManager: false,
+      })
+      .expect(201);
+  });
+
+  it('should handle an unknown route', () => {
+    return request(app.getHttpServer())
+      .get('/unknownRoute')
+      .expect(404);
   });
 });

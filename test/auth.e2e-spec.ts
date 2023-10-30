@@ -17,73 +17,56 @@ describe('AuthController (E2E)', () => {
     await app.init();
   });
 
-  describe('Authentication', () => {
-    it('/ (POST) - should return 404 when logging in a user that doesnt exists ', async () => {
+  describe('POST', () => {
+    it('should return 404 when logging in a user that doesnt exists ', async () => {
       const URL = '/auth/login';
-      const response = await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post(URL)
         .send({
           username: 'user',
           password: 'User123!',
         })
         .expect(404);
-
-      authToken = response.text;
     });
 
-    it('/ (POST) - should return 401 when password is not strong enough ', async () => {
+    it('should return 401 when password is not strong enough ', async () => {
       const URL = '/auth/login';
-      const response = await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post(URL)
         .send({
-          username: 'PedrooSilvaa',
+          username: 'UserTeste',
           password: 'user123!',
         })
         .expect(401);
-
-      authToken = response.text;
     });
 
-    it('/ (POST) - should return 404 when user doesnt exists ', async () => {
+    it('should return 401 when password is incorrect ', async () => {
       const URL = '/auth/login';
-      const response = await request(app.getHttpServer())
+      await request(app.getHttpServer())
         .post(URL)
         .send({
-          username: 'user',
-          password: 'user123!',
-        })
-        .expect(404);
-
-      authToken = response.text;
-    });
-
-    it('/ (POST) - should return 401 when password is incorrect ', async () => {
-      const URL = '/auth/login';
-      const response = await request(app.getHttpServer())
-        .post(URL)
-        .send({
-          username: 'PedrooSilvaa',
+          username: 'UserTeste',
           password: 'User123!',
         })
         .expect(401);
-
-      authToken = response.text;
     });
 
-    it('/ (POST) - should return 200 when logging into the user account', async () => {
+    it('should return 200 when logging into the user account', async () => {
       const URL = '/auth/login';
       const response = await request(app.getHttpServer())
         .post(URL)
         .send({
-          username: 'PedrooSilvaa',
-          password: 'Pedro1234!',
+          username: 'UserTeste',
+          password: 'UserTeste123!',
         })
         .expect(200);
 
       authToken = response.text;
     });
+  });
 
-    it('/ (GET) - shoud return 200 when accessing the current user profile', () => {
+  describe('GET', () => {
+    it('shoud return 200 when accessing the current user profile', () => {
       const URL = '/auth/profile';
       return request(app.getHttpServer())
         .get(URL)
@@ -91,11 +74,9 @@ describe('AuthController (E2E)', () => {
         .expect(200);
     });
 
-    it('/ (GET) - shoud return 401 when getting the user profile without access token', () => {
+    it('shoud return 401 when getting the user profile without access token', () => {
       const URL = '/auth/profile';
-      return request(app.getHttpServer())
-        .get(URL)
-        .expect(401);
+      return request(app.getHttpServer()).get(URL).expect(401);
     });
   });
 });
