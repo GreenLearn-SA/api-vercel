@@ -31,7 +31,7 @@ describe('AuthController (E2E)', () => {
       authToken = response.text;
     });
 
-    it('/ (POST) - should return 400 when password is not strong enough ', async () => {
+    it('/ (POST) - should return 401 when password is not strong enough ', async () => {
       const URL = '/auth/login';
       const response = await request(app.getHttpServer())
         .post(URL)
@@ -39,7 +39,7 @@ describe('AuthController (E2E)', () => {
           username: 'PedrooSilvaa',
           password: 'user123!',
         })
-        .expect(400);
+        .expect(401);
 
       authToken = response.text;
     });
@@ -70,7 +70,7 @@ describe('AuthController (E2E)', () => {
       authToken = response.text;
     });
 
-    it('/ (POST) - should log in into the user account', async () => {
+    it('/ (POST) - should return 200 when logging into the user account', async () => {
       const URL = '/auth/login';
       const response = await request(app.getHttpServer())
         .post(URL)
@@ -83,12 +83,19 @@ describe('AuthController (E2E)', () => {
       authToken = response.text;
     });
 
-    it('/ (GET) - shoud access the current user profile', () => {
+    it('/ (GET) - shoud return 200 when accessing the current user profile', () => {
       const URL = '/auth/profile';
       return request(app.getHttpServer())
         .get(URL)
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200);
+    });
+
+    it('/ (GET) - shoud return 401 when getting the user profile without access token', () => {
+      const URL = '/auth/profile';
+      return request(app.getHttpServer())
+        .get(URL)
+        .expect(401);
     });
   });
 });
