@@ -14,7 +14,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiT
 import { SingInUserDto } from 'src/modules/user/dto/singIn-user-dto';
 
 @ApiBearerAuth()
-@ApiTags('Auth - Autorização')
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) { }

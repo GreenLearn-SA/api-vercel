@@ -25,11 +25,16 @@ async function bootstrap() {
       'https://github.com/Pedroo-Nietoo',
       'pedronieto.2005@gmail.com')
 
+    .addTag('Auth', 'Tudo sobre autenticação e autorização', {
+        description: 'Saiba mais',
+        url: 'https://github.com/GreenLearn-SA',
+      })
+
     .addTag('Usuário', 'Tudo sobre os usuários', {
       description: 'Saiba mais',
       url: 'https://github.com/GreenLearn-SA',
     })
-    .addTag('Disciplina', 'Tudo sobre disciplias', {
+    .addTag('Disciplina', 'Tudo sobre disciplinas', {
       description: 'Saiba mais',
       url: 'https://github.com/GreenLearn-SA',
     })

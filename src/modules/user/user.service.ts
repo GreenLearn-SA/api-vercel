@@ -17,7 +17,7 @@ export class UserService {
     });
 
     if (userExists) {
-      throw new ConflictException(`Usuário com o e-mail ${createUserDto.email} já existe`);
+      throw new ConflictException(`Usuário com o e-mail '${createUserDto.email}' já existe`);
     }
 
     const usernameExists = await this.prisma.user.findFirst({
@@ -27,7 +27,7 @@ export class UserService {
     });
 
     if (usernameExists) {
-      throw new ConflictException(`Usuário com o username ${createUserDto.username} já existe`);
+      throw new ConflictException(`Usuário com o username '${createUserDto.username}' já existe`);
     }
 
     const salt = await bcrypt.genSalt();
@@ -143,7 +143,7 @@ export class UserService {
     });
 
     if (usernameExists) {
-      throw new ConflictException(`Usuário com o username ${updateUserDto.username} já existe`);
+      throw new ConflictException(`Usuário com o username '${updateUserDto.username}' já existe`);
     }
 
     const salt = await bcrypt.genSalt();

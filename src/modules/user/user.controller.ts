@@ -89,14 +89,14 @@ export class UserController {
     description: 'Requisição inválida',
     type: SwaggerBadRequestResponse,
   })
-  @Get('find/:username')
+  @Get('/:username')
   findOne(@Param('username') username: string) {
     return this.userService.findOne(username);
   }
 
   @ApiOperation({
     summary: 'Atualiza as informações de um usuário',
-    description: 'Atualiza as informações do perfil do usuário com base no id',
+    description: 'Atualiza as informações do perfil do usuário com base no username',
   })
   @ApiOkResponse({
     status: 200,
