@@ -17,14 +17,14 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('API - GreenLearn 🌱')
     .setDescription(
-      'API para a Situação de Aprendizagem do Ensino Médio da `Escola SENAI`',
+      `API do GreenLean para auxílio dos estudos para vestibulares e ENEM (Exame Nacional do Ensino Médio) - Situação de Aprendizagem do Ensino Médio da Escola SENAI`,
     )
     .setVersion('1.0')
     .setLicense('MIT', 'https://opensource.org/license/mit/')
     .addBearerAuth()
     .setContact(
       'Pedro Henrique Nieto da Silva',
-      'https://github.com/Pedroo-Nietoo',
+      'https://devtree-pedro-nieto.vercel.app/',
       'pedronieto.2005@gmail.com',
     )
 

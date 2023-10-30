@@ -1,13 +1,17 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/database/PrismaService';
+import { PrismaService } from '../../database/PrismaService';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
     const userExists = await this.prisma.user.findFirst({
@@ -17,7 +21,9 @@ export class UserService {
     });
 
     if (userExists) {
-      throw new ConflictException(`Usuário com o e-mail '${createUserDto.email}' já existe`);
+      throw new ConflictException(
+        `Usuário com o e-mail '${createUserDto.email}' já existe`,
+      );
     }
 
     const usernameExists = await this.prisma.user.findFirst({
@@ -27,7 +33,9 @@ export class UserService {
     });
 
     if (usernameExists) {
-      throw new ConflictException(`Usuário com o username '${createUserDto.username}' já existe`);
+      throw new ConflictException(
+        `Usuário com o username '${createUserDto.username}' já existe`,
+      );
     }
 
     const salt = await bcrypt.genSalt();
@@ -110,7 +118,7 @@ export class UserService {
           },
         },
       },
-    })
+    });
 
     const userExists = await this.prisma.user.findUnique({
       where: {
@@ -143,7 +151,9 @@ export class UserService {
     });
 
     if (usernameExists) {
-      throw new ConflictException(`Usuário com o username '${updateUserDto.username}' já existe`);
+      throw new ConflictException(
+        `Usuário com o username '${updateUserDto.username}' já existe`,
+      );
     }
 
     const salt = await bcrypt.genSalt();
@@ -181,8 +191,8 @@ export class UserService {
   async findInfos(username: string): Promise<CreateUserDto | undefined> {
     return this.prisma.user.findFirst({
       where: {
-        username: username
-      }
+        username: username,
+      },
     });
   }
 }

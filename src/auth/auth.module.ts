@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
+import { PrismaService } from '../database/PrismaService';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { jwtConstants } from './constants';
   ],
   providers: [
     AuthService,
+    PrismaService,
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
@@ -27,4 +29,4 @@ import { jwtConstants } from './constants';
   controllers: [AuthController],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

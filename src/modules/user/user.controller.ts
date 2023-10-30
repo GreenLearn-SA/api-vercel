@@ -6,7 +6,7 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -25,13 +25,13 @@ import {
 import { SwaggerConflictResponse } from '../helpers/conflict-response';
 import { SwaggerBadRequestResponse } from '../helpers/bad-request-response';
 import { SwaggerNotFoundResponse } from '../helpers/not-found-response';
-import { Public } from 'src/auth/decorators/public.decorator';
+import { Public } from '../../auth/decorators/public.decorator';
 
 @ApiBearerAuth()
 @ApiTags('Usuário')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Public()
   @Post('create')
@@ -58,7 +58,11 @@ export class UserController {
     summary: 'Lista todos os usuários',
     description: 'Lista todos os usuários por página',
   })
-  @ApiParam({ name: 'page', description: 'Página de listagem dos usuários', schema: { default: 1 } })
+  @ApiParam({
+    name: 'page',
+    description: 'Página de listagem dos usuários',
+    schema: { default: 1 },
+  })
   @ApiOkResponse({ status: 200, description: 'Usuários listados' })
   @ApiBadRequestResponse({
     status: 400,
@@ -96,7 +100,8 @@ export class UserController {
 
   @ApiOperation({
     summary: 'Atualiza as informações de um usuário',
-    description: 'Atualiza as informações do perfil do usuário com base no username',
+    description:
+      'Atualiza as informações do perfil do usuário com base no username',
   })
   @ApiOkResponse({
     status: 200,
@@ -118,14 +123,16 @@ export class UserController {
     type: SwaggerBadRequestResponse,
   })
   @Patch('update/:username')
-  update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('username') username: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.userService.update(username, updateUserDto);
   }
 
   @ApiOperation({
     summary: 'Remove um usuário',
-    description:
-      'Remove um usuário do sistema ao passar o username do mesmo',
+    description: 'Remove um usuário do sistema ao passar o username do mesmo',
   })
   @ApiOkResponse({ status: 200, description: 'Usuário removido' })
   @ApiNotFoundResponse({

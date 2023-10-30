@@ -11,7 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { SingInUserDto } from 'src/modules/user/dto/singIn-user-dto';
+import { SingInUserDto } from '../modules/user/dto/singIn-user-dto';
 
 @ApiBearerAuth()
 @ApiTags('Auth')
