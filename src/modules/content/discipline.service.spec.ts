@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Test, TestingModule } from '@nestjs/testing';
-import { DisciplineService } from './discipline.service';
+import { DisciplineService } from './content.service';
 
 describe('DisciplineService', () => {
   let service: DisciplineService;

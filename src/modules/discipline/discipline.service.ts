@@ -1,13 +1,16 @@
 /* eslint-disable prettier/prettier */
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { CreateDisciplineDto } from './dto/create-discipline.dto';
 import { UpdateDisciplineDto } from './dto/update-discipline.dto';
 
-
 @Injectable()
 export class DisciplineService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(createDisciplineDto: CreateDisciplineDto) {
     const disciplineExists = await this.prisma.discipline.findFirst({
@@ -17,7 +20,9 @@ export class DisciplineService {
     });
 
     if (disciplineExists) {
-      throw new ConflictException(`Disciplina com o nome '${createDisciplineDto.name}' já existe`);
+      throw new ConflictException(
+        `Disciplina com o nome '${createDisciplineDto.name}' já existe`,
+      );
     }
 
     const userExists = await this.prisma.user.findUnique({
@@ -27,7 +32,7 @@ export class DisciplineService {
     });
 
     if (!userExists) {
-      throw new ConflictException('Id do usuário não existe')
+      throw new ConflictException('Id do usuário não existe');
     }
 
     await this.prisma.discipline.create({
@@ -46,6 +51,7 @@ export class DisciplineService {
           content: {
             select: {
               name: true,
+              description: true,
             },
           },
         },
@@ -58,6 +64,7 @@ export class DisciplineService {
           content: {
             select: {
               name: true,
+              description: true,
             },
           },
         },
@@ -71,6 +78,7 @@ export class DisciplineService {
           content: {
             select: {
               name: true,
+              description: true,
             },
           },
         },
@@ -94,7 +102,7 @@ export class DisciplineService {
           },
         },
       },
-    })
+    });
 
     const disciplineExists = await this.prisma.discipline.findUnique({
       where: {
@@ -117,7 +125,7 @@ export class DisciplineService {
     });
 
     if (!userExists) {
-      throw new ConflictException('Id do usuário não existe')
+      throw new ConflictException('Id do usuário não existe');
     }
 
     const disciplineExists = await this.prisma.discipline.findFirst({
@@ -127,7 +135,9 @@ export class DisciplineService {
     });
 
     if (disciplineExists) {
-      throw new ConflictException(`Disciplina com o nome '${updateDisciplineDto.name}' já existe`);
+      throw new ConflictException(
+        `Disciplina com o nome '${updateDisciplineDto.name}' já existe`,
+      );
     }
 
     return await this.prisma.discipline.update({

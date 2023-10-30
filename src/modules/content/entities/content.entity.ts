@@ -1,2 +1,2 @@
 /* eslint-disable prettier/prettier */
-export class Discipline {}
+export class Content {}
