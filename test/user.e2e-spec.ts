@@ -141,8 +141,6 @@ describe('UserController (E2E)', () => {
         .expect(409);
     });
 
-    //TODO email
-
     it('should return 200 when updating a user ', () => {
       const URL = '/user/update/PedrooSilvaa';
       return request(app.getHttpServer())
