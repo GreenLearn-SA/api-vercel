@@ -95,18 +95,6 @@ export class ContentService {
   }
 
   async update(name: string, updateContentDto: UpdateContentDto) {
-    const contentExists = await this.prisma.content.findFirst({
-      where: {
-        name: updateContentDto.name,
-      },
-    });
-
-    if (contentExists) {
-      throw new ConflictException(
-        `Conteúdo com o nome '${updateContentDto.name}' já existe`,
-      );
-    }
-
     const disciplineExists = await this.prisma.discipline.findUnique({
       where: {
         id: updateContentDto.disciplineId,
