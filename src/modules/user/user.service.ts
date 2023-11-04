@@ -134,16 +134,6 @@ export class UserService {
   }
 
   async update(username: string, updateUserDto: UpdateUserDto) {
-    const userExists = await this.prisma.user.findUnique({
-      where: {
-        username: updateUserDto.username,
-      },
-    });
-
-    if (!userExists) {
-      throw new NotFoundException('Usuário não existe!');
-    }
-
     const usernameExists = await this.prisma.user.findFirst({
       where: {
         username: updateUserDto.username,
