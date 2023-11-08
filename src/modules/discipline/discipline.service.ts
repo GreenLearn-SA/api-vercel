@@ -48,7 +48,7 @@ export class DisciplineService {
         select: {
           id: true,
           name: true,
-          content: {
+          contents: {
             select: {
               name: true,
               description: true,
@@ -61,7 +61,7 @@ export class DisciplineService {
         select: {
           id: true,
           name: true,
-          content: {
+          contents: {
             select: {
               name: true,
               description: true,
@@ -75,7 +75,7 @@ export class DisciplineService {
         select: {
           id: true,
           name: true,
-          content: {
+          contents: {
             select: {
               name: true,
               description: true,
@@ -96,7 +96,7 @@ export class DisciplineService {
       select: {
         id: true,
         name: true,
-        content: {
+        contents: {
           select: {
             name: true,
           },

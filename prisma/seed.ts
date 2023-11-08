@@ -1,0 +1,63 @@
+/* eslint-disable prettier/prettier */
+import {PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+
+const prisma = new PrismaClient();
+
+async function main() {
+  const users = [
+    {
+        id: "ec071bc5-d803-4c7c-9131-320c656a71c0",
+        firstName: "Pedro",
+        lastName: "Nieto",
+        username: "PedrooNietoo",
+        email: "pedronieto.2005@gmail.com",
+        password: "SenhaForte123!",
+        isManager: false
+      },
+      {
+        id: "ec071bc5-d803-4c7c-9131-320c656a71c1",
+        firstName: "Ashlyn",
+        lastName: "Iero",
+        username: "AshlynIero",
+        email: "ashlynierow@gmail.com",
+        password: "SenhaForte123!",
+        isManager: false
+      },
+      {
+        id: "ec071bc5-d803-4c7c-9131-320c656a71c2",
+        firstName: "Bernardo",
+        lastName: "Mattos",
+        username: "BernardoMattos",
+        email: "bernardomtt2@gmail.com",
+        password: "SenhaForte123!",
+        isManager: false
+      },
+  ];
+
+  for (const user of users) {
+    const salt = await bcrypt.genSalt();
+    const hash: string = await bcrypt.hash(user.password, salt);
+    await prisma.user.upsert({
+      where: { email: user.email },
+      update: {},
+      create: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+        password: hash,
+      },
+    });
+  }
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
