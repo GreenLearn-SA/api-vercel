@@ -33,6 +33,15 @@ async function main() {
         password: "SenhaForte123!",
         isManager: false
       },
+      {
+        id: "ec071bc5-d803-4c7c-9131-320c656a71c3",
+        firstName: "Usuário",
+        lastName: "Administrador",
+        username: "admin",
+        email: "admin@greenlearn.com",
+        password: "Admin1!",
+        isManager: false
+      },
   ];
 
   for (const user of users) {
