@@ -39,7 +39,7 @@ async function main() {
         lastName: "Administrador",
         username: "admin",
         email: "admin@greenlearn.com",
-        password: "Admin1!",
+        password: "Admin12!",
         isManager: false
       },
   ];
