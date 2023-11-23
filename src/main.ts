@@ -49,6 +49,11 @@ async function bootstrap() {
       url: 'https://github.com/GreenLearn-SA',
     })
 
+    .addTag('Server Health', 'Checar a saúde do servidor', {
+      description: 'Saiba mais',
+      url: 'https://github.com/GreenLearn-SA',
+    })
+
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
