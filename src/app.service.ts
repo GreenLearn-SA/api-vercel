@@ -14,13 +14,13 @@ export class AppService {
     private http: HttpHealthIndicator,
     private db: TypeOrmHealthIndicator,
   ) {}
-  private readonly logger = new Logger(AppService.name);
+  private readonly logger = new Logger('Server Health');
 
   @Cron(CronExpression.EVERY_10_MINUTES)
   async checkHealth() {
     try {
       const serverHealth: HealthCheckResult = await this.health.check([
-        () => this.http.pingCheck('nestjs-api', 'http://localhost:3000/api'),
+        () => this.http.pingCheck('nestjs-api', 'http://localhost:3001/api'),
         () => this.db.pingCheck('database'),
       ]);
 
@@ -35,7 +35,7 @@ export class AppService {
     }
   }
 
-  @Timeout(3000)
+  @Timeout(1000)
   runApplication() {
     return this.logger.log('Service is now up and running! 🌱');
   }
