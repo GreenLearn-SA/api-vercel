@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Back-End da Situação de Aprendizagem 'GreenLearn' feita com o framework [Nest](https://nestjs.com) e [TypeScript](https://www.typescriptlang.org).
 
 ## Installation
 
