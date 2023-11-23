@@ -10,6 +10,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { HttpModule } from '@nestjs/axios';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 10,
+        limit: 50,
       },
     ]),
     TypeOrmModule.forRoot({
@@ -30,11 +31,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'senai',
+      password: 'postgres',
       database: 'GreenLearnDB',
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],
