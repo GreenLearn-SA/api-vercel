@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, Timeout } from '@nestjs/schedule';
+import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
 import {
   HealthCheckService,
   HttpHealthIndicator,
@@ -16,11 +16,11 @@ export class AppService {
   ) {}
   private readonly logger = new Logger(AppService.name);
 
-  @Cron('10 * * * *')
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async checkHealth() {
     try {
       const serverHealth: HealthCheckResult = await this.health.check([
-        () => this.http.pingCheck('nestjs-api', 'http://localhost:4000/api'),
+        () => this.http.pingCheck('nestjs-api', 'http://localhost:3000/api'),
         () => this.db.pingCheck('database'),
       ]);
 
