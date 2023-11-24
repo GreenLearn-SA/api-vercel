@@ -4,10 +4,12 @@ import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
 import { PrismaService } from './database/PrismaService';
 import {
   HealthCheckService,
+  HealthCheckResult,
   HttpHealthIndicator,
   TypeOrmHealthIndicator,
-  HealthCheckResult,
   PrismaHealthIndicator,
+  DiskHealthIndicator,
+  MemoryHealthIndicator,
 } from '@nestjs/terminus';
 
 @Injectable()
@@ -18,6 +20,8 @@ export class AppService {
     private db: TypeOrmHealthIndicator,
     private readonly prisma: PrismaHealthIndicator,
     private readonly prismaService: PrismaService,
+    private readonly disk: DiskHealthIndicator,
+    private readonly memory: MemoryHealthIndicator,
   ) {}
   private readonly logger = new Logger('Server Health');
 
@@ -28,6 +32,12 @@ export class AppService {
         () => this.http.pingCheck('nestjs-api', 'http://localhost:3000/api'),
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
+        () =>
+          this.disk.checkStorage('storage', {
+            path: `C:/Program Files/PostgreSQL/15/data`,
+            thresholdPercent: 0.5,
+          }),
+        () => this.memory.checkHeap('memory_heap', 1024 * 1024 * 1024),
       ]);
 
       if (serverHealth.status === 'ok') {
