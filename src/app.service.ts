@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
 import { PrismaService } from './database/PrismaService';
