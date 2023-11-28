@@ -34,7 +34,7 @@ export class AppService {
         () => this.prisma.pingCheck('prisma', this.prismaService),
         () =>
           this.disk.checkStorage('storage', {
-            path: `C:/Program Files/PostgreSQL/15/data`,
+            path: `/var/lib/postgresql/16/main`,
             thresholdPercent: 0.5,
           }),
         () => this.memory.checkHeap('memory_heap', 1024 * 1024 * 1024),
