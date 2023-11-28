@@ -32,7 +32,7 @@ export class AppService {
         () =>
           this.http.pingCheck(
             'nestjs-api',
-            'https://greenlearn-api.vercel.app',
+            'http://localhost:3000/api',
           ),
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
