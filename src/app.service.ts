@@ -29,7 +29,11 @@ export class AppService {
   async checkHealth() {
     try {
       const serverHealth: HealthCheckResult = await this.health.check([
-        () => this.http.pingCheck('nestjs-api', 'http://localhost:3000/api'),
+        () =>
+          this.http.pingCheck(
+            'nestjs-api',
+            'https://greenlearn-api.vercel.app',
+          ),
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
       ]);
