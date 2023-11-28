@@ -32,12 +32,6 @@ export class AppService {
         () => this.http.pingCheck('nestjs-api', 'http://localhost:3000/api'),
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
-        () =>
-          this.disk.checkStorage('storage', {
-            path: `/var/lib/postgresql/16/main`,
-            thresholdPercent: 0.5,
-          }),
-        () => this.memory.checkHeap('memory_heap', 1024 * 1024 * 1024),
       ]);
 
       if (serverHealth.status === 'ok') {
