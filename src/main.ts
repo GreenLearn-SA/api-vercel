@@ -73,7 +73,6 @@ async function bootstrap() {
   });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  app.setGlobalPrefix('api');
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
   SwaggerModule.setup('api', app, document);
 
