@@ -31,7 +31,7 @@ export class AppService {
       const serverHealth: HealthCheckResult = await this.health.check([
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
-        () => this.disk.checkStorage('storage', { path: '/', thresholdPercent: 0.75 }),
+        () => this.disk.checkStorage('storage', { path: '/', thresholdPercent: 0.8 }),
         () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
       ]);
 
