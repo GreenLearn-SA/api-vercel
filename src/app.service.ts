@@ -31,7 +31,7 @@ export class AppService {
       const serverHealth: HealthCheckResult = await this.health.check([
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
-        () => this.disk.checkStorage('storage', { path: process.env.POSTGRES_URL, thresholdPercent: 0.5 }),
+        () => this.disk.checkStorage('storage', { path: '/', thresholdPercent: 0.5 }),
       ]);
 
       if (serverHealth.status === 'ok') {
