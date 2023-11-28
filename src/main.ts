@@ -58,9 +58,9 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger', app, document, {
-    customSiteTitle: 'Backend Generator',
-    customfavIcon: 'https://avatars.githubusercontent.com/u/6936373?s=200&v=4',
+  SwaggerModule.setup('api', app, document, {
+    customSiteTitle: 'GreenLearn - API',
+    customfavIcon: 'https://docs.nestjs.com/assets/logo-small.svg',
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
@@ -74,7 +74,6 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
 

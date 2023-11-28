@@ -17,7 +17,7 @@ export class AppController {
     description:
       'Verifica a saúde da API, do Prisma, do Banco de Dados e seu armazenamento e memória temporária',
   })
-  @Get()
+  @Get('/')
   checkHealth() {
     return this.appService.checkHealth();
   }
