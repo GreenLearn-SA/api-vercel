@@ -23,7 +23,7 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .setLicense('MIT', 'https://opensource.org/license/mit/')
-    .addBearerAuth()
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })
     .setContact(
       'Pedro Henrique Nieto da Silva',
       'https://devtree-pedro-nieto.vercel.app/',
