@@ -29,13 +29,9 @@ export class AppService {
   async checkHealth() {
     try {
       const serverHealth: HealthCheckResult = await this.health.check([
-        () =>
-          this.http.pingCheck(
-            'nestjs-api',
-            'http://localhost:3000/api',
-          ),
         () => this.db.pingCheck('database'),
         () => this.prisma.pingCheck('prisma', this.prismaService),
+        () => this.disk.checkStorage('storage', { path: process.env.POSTGRES_URL, thresholdPercent: 0.5 }),
       ]);
 
       if (serverHealth.status === 'ok') {
