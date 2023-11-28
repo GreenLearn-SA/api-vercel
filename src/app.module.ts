@@ -37,6 +37,12 @@ import { PrismaService } from './database/PrismaService';
       url: process.env.POSTGRES_PRISMA_URL,
       autoLoadEntities: true,
       synchronize: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     }),
     ScheduleModule.forRoot(),
   ],
